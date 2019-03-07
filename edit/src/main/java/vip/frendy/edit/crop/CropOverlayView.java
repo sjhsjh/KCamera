@@ -417,7 +417,11 @@ public class CropOverlayView extends View {
 	/**
 	 * Set the initial crop window size and position. This is dependent on the
 	 * size and position of the image being cropped.
-	 * 
+     *
+     * edit by sjh start
+	 * Edge 为被裁减的区域。mTargetAspectRatio是宽除以高的比例，该函数处理并裁剪超出比例的一边，生成一个edge裁剪区域。
+	 * edit by sjh start
+     *
 	 * @param bitmapRect
 	 *            the bounding box around the image being cropped
 	 */

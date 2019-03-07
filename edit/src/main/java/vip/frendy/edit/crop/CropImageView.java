@@ -355,10 +355,27 @@ public class CropImageView extends FrameLayout {
         final float scaleFactorHeight = actualImageHeight / displayedImageHeight;
 
         // Get crop window position relative to the displayed image.
-        final float cropWindowX = Edge.LEFT.getCoordinate() - displayedImageRect.left;
-        final float cropWindowY = Edge.TOP.getCoordinate() - displayedImageRect.top;
-        final float cropWindowWidth = Edge.getWidth();
-        final float cropWindowHeight = Edge.getHeight();
+        float cropWindowX = Edge.LEFT.getCoordinate() - displayedImageRect.left;
+        float cropWindowY = Edge.TOP.getCoordinate() - displayedImageRect.top;
+        float cropWindowWidth = Edge.getWidth();
+        float cropWindowHeight = Edge.getHeight();
+
+        // edit by sjh start
+//        displayedImageRect.top : 待裁剪的原imageview距离显示区域的距离（即距离标题栏的距离）
+//        Edge.TOP.getCoordinate() ：被裁剪的view距离显示区域的距离
+//        cropWindowY ： 上述两者的差，是被裁view距离原view边缘的距离。
+//        Edge ： 被裁减的区域。
+//        Log.e("sjh7", "cropWindowX = " + cropWindowX + " cropWindowY = " + cropWindowY
+//                + " cropWindowWidth = " + cropWindowWidth + " cropWindowHeight = " + cropWindowHeight);
+
+        cropWindowX = cropWindowX >= 0 ? cropWindowX : 0;
+        cropWindowY = cropWindowY >= 0 ? cropWindowY : 0;
+        cropWindowWidth = cropWindowWidth <= displayedImageRect.width() ? cropWindowWidth : displayedImageRect.width();
+        cropWindowHeight = cropWindowHeight <= displayedImageRect.height() ? cropWindowHeight : displayedImageRect.height();
+
+//        Log.w("sjh7", "cropWindowX = " + cropWindowX + " cropWindowY = " + cropWindowY
+//                + " cropWindowWidth = " + cropWindowWidth + " cropWindowHeight = " + cropWindowHeight);
+        // edit by sjh start
 
         // Scale the crop window position to the actual size of the Bitmap.
         final float actualCropX = cropWindowX * scaleFactorWidth;
